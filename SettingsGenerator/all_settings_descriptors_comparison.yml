@@ -1,0 +1,80 @@
+%YAML:1.0
+
+NNDR:
+   # should be a value in range (0.5, 0.8)
+   epsilon: [ 0.8, 0.7, 0.6 ]
+
+#---------------------------------------------------------------------------
+
+FeatureOptions:
+
+   # Feature Detection Options
+   # "FAST"
+   # "STAR"
+   # "SIFT"
+   # "SURF"
+   # "MSER"
+
+   DetectorType: [ "FAST", "STAR", "SIFT", "SURF" ]
+   
+   # Feature Detection Modes
+   # "STATIC"
+   # "ADAPTIVE"
+   
+   DetectorMode: [ "STATIC", "ADAPTIVE" ]
+   
+   #ADAPTIVE SETTINGS
+   
+   Adaptive:
+      MinFeatures: [ 50, 100 ]
+      MaxFeatures: [ 200, 400 ] 
+      MaxIters: [ 3, 5, 7 ]
+      
+   # STATIC SETTINGS
+   
+   FastDetector:
+      Threshold: [ 30, 50, 70 ]
+      NonMaxSuppression: [ 1, 0 ]
+
+   StarDetector:
+      MaxSize: [ 27, 37, 47 ] #45
+      Response: [ 10, 20, 30 ] #30
+      LineThreshold: [ 10, 15, 20 ] #10
+      LineBinarized: [ 5, 10, 15 ] #8
+      Suppression: [ 5, 15, 25 ] #5
+
+   SiftDetector:
+      EdgeThreshold: [ 5, 10, 15 ]
+      ContrastThreshold: [ 0.02, 0.04, 0.06 ]
+      
+      #OPENCV2.4only
+      NumFeatures: [ 150, 200, 250 ]
+      NumOctaveLayers: [ 3, 4, 5 ]
+      Sigma: [ 1.3, 1.6, 1.9 ]
+
+   SurfDetector:
+      HessianThreshold: [ 100, 300, 700 ] #400
+      NumOctaves: [ 3, 4, 5 ]
+      NumOctaveLayers: [ 2, 3 ] 
+      Upright: [ 0, 1 ]
+      Extended: [ 0, 1 ]
+
+   MSERDetector:
+      Delta: 5
+      MinArea: 60
+      MaxArea: 14400 
+      MaxVariation: 0.25
+      MinDiversity: 0.2
+      MaxEvolution: 200  
+      AreaThreshold: 1.01  
+      MinMargin: 0.003  
+      EdgeBlurSize: 5     
+
+   # Descriptor Extraction Options
+   # "SIFT"
+   # "SURF"
+
+   ExtractorType: [ "SIFT", "SURF" ]
+
+#---------------------------------------------------------------------------
+
