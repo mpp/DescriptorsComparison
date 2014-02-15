@@ -3,7 +3,12 @@ project(settingsgenerator)
 
 cmake_policy(SET CMP0015 NEW)
 
-set(CMAKE_BUILD_TYPE "Debug")
+SET(CMAKE_BUILD_TYPE Debug)
+
+ADD_DEFINITIONS(
+    -std=c++11 # Or -std=c++0x
+    -Wno-deprecated
+)
 
 message("Project ${PROJECT_NAME} build Type: ${CMAKE_BUILD_TYPE}")
 
@@ -15,7 +20,11 @@ find_package( OpenCV REQUIRED )
 include_directories(${OpenCV_INCLUDE_DIR})
 link_directories ( ${OpenCV_LIBS})
 
-add_executable(settingsgenerator settingsgenerator.cpp main.cpp)
+add_executable(settingsgenerator
+               src/SettingsGenerator/settingsgenerator.cpp
+               src/SettingsGenerator/yamlparameterizedobject.cpp
+               src/SettingsGenerator/yamlobjectscreationstrategy.cpp
+               src/main.cpp)
 
 target_link_libraries(settingsgenerator  ${OpenCV_LIBS} ${Boost_LIBRARIES} )
 

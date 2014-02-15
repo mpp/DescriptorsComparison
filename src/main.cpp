@@ -4,7 +4,7 @@
 #include <iomanip>
 
 
-#include "settingsgenerator.h"
+#include "SettingsGenerator/settingsgenerator.h"
 
 /** Displays the usage message
  */
