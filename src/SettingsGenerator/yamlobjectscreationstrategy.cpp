@@ -33,7 +33,7 @@ void defaultCreateFromYAMLFunction(const cv::FileStorage &fs,
 
     std::string name = fs["FeatureName"];
 
-    cv::FileNode featureOptions = fs["FeatureOptions"]["SiftDetector"];
+    cv::FileNode featureOptions = fs["FeatureOptions"];
 
     int numberOfParameters = featureOptions.size();
 
@@ -130,6 +130,7 @@ void YAMLObjectsCreator::createFromYAML(const cv::FileStorage &fs,
     create_function_(fs, vector);
 }
 
+/*
 void SIFTDetectorsFromYAML(const cv::FileStorage &fs,
                                 std::vector<KeyPointDetector::ConstPtr> &vector)
 {
@@ -426,15 +427,15 @@ void MSERDetectorsFromYAML(const cv::FileStorage &fs,
             minMargin,
             edgeBlurSize;
 
-    fs["FeatureOptions"]["delta"] >> delta;
-    fs["FeatureOptions"]["minArea"] >> minArea;
-    fs["FeatureOptions"]["maxVariation"] >> maxVariation;
-    fs["FeatureOptions"]["minVariation"] >> minVariation;
-    fs["FeatureOptions"]["maxEvolution"] >> maxEvolution;
-    fs["FeatureOptions"]["areaThreshold"] >> areaThreshold;
-    fs["FeatureOptions"]["minMargin"] >> minMargin;
-    fs["FeatureOptions"]["maxArea"] >> maxArea;
-    fs["FeatureOptions"]["edgeBlurSize"] >> edgeBlurSize;
+    fs["FeatureOptions"]["Delta"] >> delta;
+    fs["FeatureOptions"]["MinArea"] >> minArea;
+    fs["FeatureOptions"]["MaxArea"] >> maxVariation;
+    fs["FeatureOptions"]["MinVariation"] >> minVariation;
+    fs["FeatureOptions"]["MaxEvolution"] >> maxEvolution;
+    fs["FeatureOptions"]["AreaThreshold"] >> areaThreshold;
+    fs["FeatureOptions"]["MinMargin"] >> minMargin;
+    fs["FeatureOptions"]["MaxArea"] >> maxArea;
+    fs["FeatureOptions"]["EdgeBlurSize"] >> edgeBlurSize;
 
     for (size_t a = 0; a < delta.size(); a++)
     {
@@ -598,5 +599,6 @@ void BRIEFExtractorsFromYAML(const cv::FileStorage &fs,
         vector.push_back(std::make_shared<const YAMLParameterizedObject>(obj));
     }
 }
+*/
 
 }
