@@ -27,15 +27,107 @@
 
 namespace sgt {
 
-YAMLObjectsCreator::YAMLObjectsCreator(CreateFromYAMLFunction &cfy_f)
-    : create_function_(cfy_f)
+void defaultCreateFromYAMLFunction(const cv::FileStorage &fs,
+                                   std::vector<YAMLParameterizedObject::ConstPtr> &vector)
 {
+
+    std::string name = fs["FeatureName"];
+
+    cv::FileNode featureOptions = fs["FeatureOptions"]["SiftDetector"];
+
+    int numberOfParameters = featureOptions.size();
+
+    std::vector<int> paramIndices(numberOfParameters);
+    std::vector<int> valuesPerParameter(numberOfParameters);
+    std::vector<cv::FileNodeIterator> valuesIterators(numberOfParameters);
+    std::vector<std::string> paramNames(numberOfParameters);
+
+    // Initialization
+    int k = 0;
+    for (auto node : featureOptions)
+    {
+        paramIndices[k] = 0;
+        valuesPerParameter[k] = node.size();
+        valuesIterators[k] = node.begin();
+        paramNames[k] = node.name();
+
+        k++;
+    }
+
+    for (;;)
+    {
+        parameters params;
+
+        int l = 0;
+        for (auto it : valuesIterators)
+        {
+
+            std::string val;
+
+            cv::FileNodeIterator current = it;
+
+            current += paramIndices[l];
+
+            if ((*current).isString())
+            {
+                (*current) >> val;
+            }
+            else if ((*current).isInt())
+            {
+                int val_f;
+                (*current) >> val_f;
+                val = std::to_string(val_f);
+            }
+            else
+            {
+                float val_f;
+                (*current) >> val_f;
+                val = std::to_string(val_f);
+            }
+
+            params.insert(std::pair<param_name, param_value>(paramNames[l], val));
+            l++;
+        }
+
+        YAMLParameterizedObject obj(name, params);
+        vector.push_back(std::make_shared<const YAMLParameterizedObject>(obj));
+
+        // Increment the offsets
+        paramIndices[0]+=1;
+
+        bool exit = false;
+        if (paramIndices[0] >= valuesPerParameter[0])
+        {
+            paramIndices[0] = 0;
+            if (numberOfParameters == 1)
+            {
+                exit = true;
+            }
+
+            for (int i = 1; i < numberOfParameters; i++)
+            {
+                paramIndices[i]+=1;
+                if (paramIndices[i] >= valuesPerParameter[i])
+                {
+                    if (i == numberOfParameters-1)
+                    {
+                        return;
+                    }
+                    paramIndices[i] = 0;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
 }
 
 void YAMLObjectsCreator::createFromYAML(const cv::FileStorage &fs,
                                         std::vector<YAMLParameterizedObject::ConstPtr> &vector) const
 {
-    create_function_(*this, fs, vector);
+    create_function_(fs, vector);
 }
 
 void SIFTDetectorsFromYAML(const cv::FileStorage &fs,

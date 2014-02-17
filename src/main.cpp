@@ -3,8 +3,9 @@
 #include <fstream>
 #include <iomanip>
 
+//#include "SettingsGenerator/settingsgenerator.h"
 
-#include "SettingsGenerator/settingsgenerator.h"
+#include "SettingsGenerator/yamlobjectscreationstrategy.h"
 
 /** Displays the usage message
  */
@@ -53,8 +54,14 @@ int main(int argc, char **argv) {
         exit(-1);
     }
     
-    SettingsGenerator sg(fs, outputPath);
-    
+    //SettingsGenerator sg(fs, outputPath);
+    std::vector<sgt::YAMLParameterizedObject::ConstPtr> vector;
+
+    sgt::YAMLObjectsCreator yoc;
+    yoc.createFromYAML(fs,vector);
+
+    std::cout << vector.size() << std::endl;
+
     return 0;
 }
 

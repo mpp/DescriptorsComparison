@@ -39,16 +39,22 @@
 
 namespace sgt {
 
+typedef YAMLParameterizedObject KeyPointDetector;
+typedef YAMLParameterizedObject DescriptorExtractor;
+
+void defaultCreateFromYAMLFunction(const cv::FileStorage &fs,
+                                   std::vector<YAMLParameterizedObject::ConstPtr> &vector);
+
 class YAMLObjectsCreator
 {
 
 public:
 
-    typedef std::function< void (const YAMLObjectsCreator&,
-                                 const cv::FileStorage&,
-                                 std::vector<YAMLParameterizedObject::ConstPtr>&) > CreateFromYAMLFunction;
+    typedef std::function< void (const cv::FileStorage&,
+                                 std::vector<YAMLParameterizedObject::ConstPtr>&) > CreateFromYAMLFunction ;
 
-    explicit YAMLObjectsCreator(CreateFromYAMLFunction &cfy_f);
+    explicit YAMLObjectsCreator(CreateFromYAMLFunction cfy_f = defaultCreateFromYAMLFunction)
+        : create_function_(cfy_f) {}
 
     /*!
      * \brief createYAMLParameterizedObjects add the created objects to the vector
@@ -63,9 +69,6 @@ private:
     CreateFromYAMLFunction create_function_;
 
 };
-
-typedef YAMLParameterizedObject KeyPointDetector;
-typedef YAMLParameterizedObject DescriptorExtractor;
 
 /*****************************************************************************
  * SIFT detector and extractor                                               *
