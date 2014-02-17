@@ -1,0 +1,39 @@
+%YAML:1.0
+
+NNDR:
+    # should be a value in range (0.5, 0.8)
+    epsilon: [ 0.8, 0.7, 0.6 ]
+
+#---------------------------------------------------------------------------
+
+FeatureOptions:
+
+    # Feature Detectors Options
+    # "FAST"
+    # "STAR"
+    # "SIFT"
+    # "SURF"
+    # "MSER"
+    # "ORB"
+    # "BRISK"
+    # "GFTT"
+
+    DetectorsType: [ "FAST", "STAR", "SIFT", "SURF", "MSER", "ORB", "BRISK", "GFTT" ]
+    ExtractorsType: [ "SIFT", "SURF", "ORB", "BRISK", "FREAK", "BRIEF" ]
+
+    # Feature Detection Modes
+    # "STATIC"
+    # "ADAPTIVE"
+
+    DetectorMode: [ "STATIC", "ADAPTIVE" ]
+
+    #ADAPTIVE SETTINGS
+
+    Adaptive:
+        MinFeatures: [ 50, 100 ]
+        MaxFeatures: [ 200, 400 ] 
+        MaxIters: [ 3, 5, 7 ]
+
+
+#---------------------------------------------------------------------------
+

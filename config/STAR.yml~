@@ -1,0 +1,9 @@
+%YAML:1.0
+
+Name: STAR
+
+FeatureOptions:
+
+    Threshold: [ 30, 50, 70 ]
+    NonMaxSuppression: [ 1, 0 ]
+

@@ -1,0 +1,12 @@
+%YAML:1.0
+
+Name: GFTT
+
+FeatureOptions:
+
+    maxCorners: [ 0, 0, 0 ]
+    qualityLevel: [ 0, 0, 0 ]
+    minDistance: [ 0, 0, 0 ]
+    blockSize: [ 0, 0, 0 ]
+    useHarrisDetector: [ 0, 1 ]
+    k: [ 0, 0, 0 ]

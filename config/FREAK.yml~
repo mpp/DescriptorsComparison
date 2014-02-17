@@ -1,0 +1,9 @@
+%YAML:1.0
+
+Name: FREAK
+
+FeatureOptions:
+
+    thresh: [ 0, 0, 0 ]
+    octaves: [ 0, 0, 0 ]
+    patternScale: [ 0, 0, 0 ]

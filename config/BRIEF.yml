@@ -1,0 +1,7 @@
+%YAML:1.0
+
+Name: BRIEF
+
+FeatureOptions:
+
+    bytes: [ 16, 32, 64 ]

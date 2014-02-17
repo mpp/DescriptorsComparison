@@ -1,0 +1,14 @@
+%YAML:1.0
+
+Name: SIFT
+
+FeatureOptions:
+
+    EdgeThreshold: [ 5, 10, 15 ]
+    ContrastThreshold: [ 0.02, 0.04, 0.06 ]
+
+    #OPENCV2.4only
+    NumFeatures: [ 150, 200, 250 ]
+    NumOctaveLayers: [ 3, 4, 5 ]
+    Sigma: [ 1.3, 1.6, 1.9 ]
+

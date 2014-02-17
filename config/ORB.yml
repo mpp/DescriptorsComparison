@@ -1,0 +1,13 @@
+%YAML:1.0
+
+Name: ORB
+
+FeatureOptions:
+
+    nfeatures: [ 0, 0, 0 ]
+    scaleFactor: [ 0, 0, 0 ]
+    nlevels: [ 0, 0, 0 ]
+    edgeThreshold: [ 0, 0, 0 ]
+    WTA_K: [ 0, 0, 0 ]
+    scoreType: [ 0, 0, 0 ]
+    patchSize: [ 0, 0, 0 ]

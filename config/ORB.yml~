@@ -1,0 +1,13 @@
+%YAML:1.0
+
+Name: ORB
+
+FeatureOptions:
+
+    nfeatures:
+scaleFactor
+nlevels
+edgeThreshold
+WTA_K
+scoreType
+patchSize

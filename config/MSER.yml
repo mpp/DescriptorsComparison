@@ -1,0 +1,16 @@
+%YAML:1.0
+
+Name: MSER
+
+FeatureOptions:
+
+    Delta: 5
+    MinArea: 60
+    MaxArea: 14400 
+    MaxVariation: 0.25
+    MinDiversity: 0.2
+    MaxEvolution: 200  
+    AreaThreshold: 1.01  
+    MinMargin: 0.003  
+    EdgeBlurSize: 5  
+

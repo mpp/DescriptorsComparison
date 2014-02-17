@@ -1,0 +1,12 @@
+%YAML:1.0
+
+Name: STAR
+
+FeatureOptions:
+
+    MaxSize: [ 27, 37, 47 ] #45
+    Response: [ 10, 20, 30 ] #30
+    LineThreshold: [ 10, 15, 20 ] #10
+    LineBinarized: [ 5, 10, 15 ] #8
+    Suppression: [ 5, 15, 25 ] #5
+

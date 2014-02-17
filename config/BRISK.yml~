@@ -1,0 +1,9 @@
+%YAML:1.0
+
+Name: BRISK
+
+FeatureOptions:
+
+    nfeatures: [ 0, 0, 0 ]
+    scaleFactor: [ 0, 0, 0 ]
+    nlevels: [ 0, 0, 0 ]

@@ -1,0 +1,10 @@
+%YAML:1.0
+
+Name: FREAK
+
+FeatureOptions:
+
+    orientationNormalized: [ 0, 0, 0 ]
+    scaleNormalized: [ 0, 0, 0 ]
+    patternScale: [ 0, 0, 0 ]
+    nOctaves: [ 0, 0, 0 ]

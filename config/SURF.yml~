@@ -1,0 +1,13 @@
+%YAML:1.0
+
+Name: SURF
+
+FeatureOptions:
+
+   SurfDetector:
+      HessianThreshold: [ 100, 300, 700 ] #400
+      NumOctaves: [ 3, 4, 5 ]
+      NumOctaveLayers: [ 2, 3 ] 
+      Upright: [ 0, 1 ]
+      Extended: [ 0, 1 ]
+
