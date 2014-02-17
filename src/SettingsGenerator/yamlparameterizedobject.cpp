@@ -28,9 +28,9 @@
 
 namespace sgt {
 
-YAMLParameterizedObject::YAMLParameterizedObject(std::string name,
-                                                 parameters params)
-    : name_(name), parameters_(params)
+YAMLParameterizedObject::YAMLParameterizedObject(std::string &name,
+                                                 parameters &params)
+    : name_(name), parameters_(std::make_shared<parameters>(params))
 {
 }
 
@@ -39,7 +39,7 @@ std::string YAMLParameterizedObject::getName() const
     return name_;
 }
 
-parameters YAMLParameterizedObject::getParameters() const
+parametersConstPtr YAMLParameterizedObject::getParameters() const
 {
     return parameters_;
 }

@@ -38,6 +38,8 @@ namespace sgt {
 typedef std::string param_name;
 typedef std::string param_value;
 typedef std::map<param_name, param_value> parameters;
+typedef std::shared_ptr<parameters> parametersPtr;
+typedef std::shared_ptr<const parameters> parametersConstPtr;
 
 class YAMLParameterizedObject
 {
@@ -51,8 +53,8 @@ public:
      * \param name
      * \param params
      */
-    YAMLParameterizedObject(std::string name,
-                            parameters params);
+    YAMLParameterizedObject(std::string &name,
+                            parameters &params);
 
     /*!
      * \brief getName
@@ -64,7 +66,7 @@ public:
      * \brief getParameters
      * \return Return the object parameters
      */
-    parameters getParameters() const;
+    parametersConstPtr getParameters() const;
 
 // Private members
 private:
@@ -75,7 +77,7 @@ private:
     std::string
         name_;          //!< The name of the object
 
-    parameters
+    parametersPtr
         parameters_;    //!< The map with the parameters and their name
 
 };

@@ -31,6 +31,7 @@
 #define YAMLOBJECTSCREATIONSTRATEGY_H
 
 #include <vector>
+#include <functional>
 
 #include <opencv2/opencv.hpp>
 
@@ -38,18 +39,28 @@
 
 namespace sgt {
 
-class YAMLObjectsCreationStrategy
+class YAMLObjectsCreator
 {
 
 public:
+
+    typedef std::function< void (const YAMLObjectsCreator&,
+                                 const cv::FileStorage&,
+                                 std::vector<YAMLParameterizedObject::ConstPtr>&) > CreateFromYAMLFunction;
+
+    explicit YAMLObjectsCreator(CreateFromYAMLFunction &cfy_f);
 
     /*!
      * \brief createYAMLParameterizedObjects add the created objects to the vector
      * \param [in] fs
      * \param [out] vector
      */
-    virtual void createFromYAML(const cv::FileStorage &fs,
-                                std::vector<YAMLParameterizedObject::ConstPtr> &vector ) const = 0;
+    void createFromYAML(const cv::FileStorage &fs,
+                        std::vector<YAMLParameterizedObject::ConstPtr> &vector) const;
+
+private:
+
+    CreateFromYAMLFunction create_function_;
 
 };
 
@@ -60,176 +71,75 @@ typedef YAMLParameterizedObject DescriptorExtractor;
  * SIFT detector and extractor                                               *
  *****************************************************************************/
 
-class SIFTDetectorCreationStrategy : public YAMLObjectsCreationStrategy
-{
-public:
-    SIFTDetectorCreationStrategy() {}
+void SIFTDetectorsFromYAML(const cv::FileStorage &fs,
+                        std::vector<KeyPointDetector::ConstPtr> &vector);
 
-    void createFromYAML(const cv::FileStorage &fs,
-                        std::vector<KeyPointDetector::ConstPtr> &vector) const;
-};
-
-class SIFTDescriptorCreationStrategy : public YAMLObjectsCreationStrategy
-{
-public:
-    SIFTDescriptorCreationStrategy() {}
-
-    void createFromYAML(const cv::FileStorage &fs,
-                        std::vector<DescriptorExtractor::ConstPtr> &vector) const;
-};
-
+void SIFTExtractorsFromYAML(const cv::FileStorage &fs,
+                        std::vector<DescriptorExtractor::ConstPtr> &vector);
 
 /*****************************************************************************
  * SURF detector and extractor                                               *
  *****************************************************************************/
 
-class SURFDetectorCreationStrategy : public YAMLObjectsCreationStrategy
-{
-public:
-    SURFDetectorCreationStrategy() {}
+void SURFDetectorsFromYAML(const cv::FileStorage &fs,
+                        std::vector<KeyPointDetector::ConstPtr> &vector);
 
-    void createFromYAML(const cv::FileStorage &fs,
-                        std::vector<KeyPointDetector::ConstPtr> &vector) const;
-};
-
-class SURFDescriptorCreationStrategy : public YAMLObjectsCreationStrategy
-{
-public:
-    SURFDescriptorCreationStrategy() {}
-
-    void createFromYAML(const cv::FileStorage &fs,
-                        std::vector<DescriptorExtractor::ConstPtr> &vector) const;
-};
-
+void SURFExtractorsFromYAML(const cv::FileStorage &fs,
+                        std::vector<DescriptorExtractor::ConstPtr> &vector);
 
 /*****************************************************************************
  * ORB detector and extractor                                                *
  *****************************************************************************/
+void ORBDetectorsFromYAML(const cv::FileStorage &fs,
+                        std::vector<KeyPointDetector::ConstPtr> &vector);
 
-class ORBDetectorCreationStrategy : public YAMLObjectsCreationStrategy
-{
-public:
-    ORBDetectorCreationStrategy() {}
-
-    void createFromYAML(const cv::FileStorage &fs,
-                        std::vector<KeyPointDetector::ConstPtr> &vector) const;
-};
-
-class ORBDescriptorCreationStrategy : public YAMLObjectsCreationStrategy
-{
-public:
-    ORBDescriptorCreationStrategy() {}
-
-    void createFromYAML(const cv::FileStorage &fs,
-                        std::vector<DescriptorExtractor::ConstPtr> &vector) const;
-};
-
+void ORBExtractorsFromYAML(const cv::FileStorage &fs,
+                        std::vector<DescriptorExtractor::ConstPtr> &vector);
 
 /*****************************************************************************
  * BRISK detector and extractor                                              *
  *****************************************************************************/
+void BRISKDetectorsFromYAML(const cv::FileStorage &fs,
+                        std::vector<KeyPointDetector::ConstPtr> &vector);
 
-class BRISKDetectorCreationStrategy : public YAMLObjectsCreationStrategy
-{
-public:
-    BRISKDetectorCreationStrategy() {}
-
-    void createFromYAML(const cv::FileStorage &fs,
-                        std::vector<KeyPointDetector::ConstPtr> &vector) const;
-};
-
-class BRISKDescriptorCreationStrategy : public YAMLObjectsCreationStrategy
-{
-public:
-    BRISKDescriptorCreationStrategy() {}
-
-    void createFromYAML(const cv::FileStorage &fs,
-                        std::vector<DescriptorExtractor::ConstPtr> &vector) const;
-};
-
+void BRISKExtractorsFromYAML(const cv::FileStorage &fs,
+                        std::vector<DescriptorExtractor::ConstPtr> &vector);
 
 /*****************************************************************************
  * FAST detector                                                             *
  *****************************************************************************/
-
-class FASTDetectorCreationStrategy : public YAMLObjectsCreationStrategy
-{
-public:
-    FASTDetectorCreationStrategy() {}
-
-    void createFromYAML(const cv::FileStorage &fs,
-                        std::vector<KeyPointDetector::ConstPtr> &vector) const;
-};
-
+void FASTDetectorsFromYAML(const cv::FileStorage &fs,
+                        std::vector<KeyPointDetector::ConstPtr> &vector);
 
 /*****************************************************************************
  * MSER detector                                                             *
  *****************************************************************************/
-
-class MSERDetectorCreationStrategy : public YAMLObjectsCreationStrategy
-{
-public:
-    MSERDetectorCreationStrategy() {}
-
-    void createFromYAML(const cv::FileStorage &fs,
-                        std::vector<KeyPointDetector::ConstPtr> &vector) const;
-};
-
+void MSERDetectorsFromYAML(const cv::FileStorage &fs,
+                        std::vector<KeyPointDetector::ConstPtr> &vector);
 
 /*****************************************************************************
  * STAR detector                                                             *
  *****************************************************************************/
-
-class STARDetectorCreationStrategy : public YAMLObjectsCreationStrategy
-{
-public:
-    STARDetectorCreationStrategy() {}
-
-    void createFromYAML(const cv::FileStorage &fs,
-                        std::vector<KeyPointDetector::ConstPtr> &vector) const;
-};
-
+void STARDetectorsFromYAML(const cv::FileStorage &fs,
+                        std::vector<KeyPointDetector::ConstPtr> &vector);
 
 /*****************************************************************************
  * GFTT detector                                                             *
  *****************************************************************************/
-
-class GFTTDetectorCreationStrategy : public YAMLObjectsCreationStrategy
-{
-public:
-    GFTTDetectorCreationStrategy() {}
-
-    void createFromYAML(const cv::FileStorage &fs,
-                        std::vector<KeyPointDetector::ConstPtr> &vector) const;
-};
-
+void GFTTDetectorsFromYAML(const cv::FileStorage &fs,
+                        std::vector<KeyPointDetector::ConstPtr> &vector);
 
 /*****************************************************************************
  * FREAK extractor                                                           *
  *****************************************************************************/
-
-class FREAKDescriptorCreationStrategy : public YAMLObjectsCreationStrategy
-{
-public:
-    FREAKDescriptorCreationStrategy() {}
-
-    void createFromYAML(const cv::FileStorage &fs,
-                        std::vector<DescriptorExtractor::ConstPtr> &vector) const;
-};
-
+void FREAKExtractorsFromYAML(const cv::FileStorage &fs,
+                        std::vector<DescriptorExtractor::ConstPtr> &vector);
 
 /*****************************************************************************
  * BRIEF extractor                                                           *
  *****************************************************************************/
-
-class BRIEFDescriptorCreationStrategy : public YAMLObjectsCreationStrategy
-{
-public:
-    BRIEFDescriptorCreationStrategy() {}
-
-    void createFromYAML(const cv::FileStorage &fs,
-                        std::vector<DescriptorExtractor::ConstPtr> &vector) const;
-};
+void BRIEFExtractorsFromYAML(const cv::FileStorage &fs,
+                        std::vector<DescriptorExtractor::ConstPtr> &vector);
 
 } // namespace sgt
 

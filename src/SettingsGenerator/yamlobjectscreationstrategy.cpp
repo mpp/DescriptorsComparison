@@ -27,8 +27,19 @@
 
 namespace sgt {
 
-void SIFTDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
-                                                  std::vector<KeyPointDetector::ConstPtr> &vector) const
+YAMLObjectsCreator::YAMLObjectsCreator(CreateFromYAMLFunction &cfy_f)
+    : create_function_(cfy_f)
+{
+}
+
+void YAMLObjectsCreator::createFromYAML(const cv::FileStorage &fs,
+                                        std::vector<YAMLParameterizedObject::ConstPtr> &vector) const
+{
+    create_function_(*this, fs, vector);
+}
+
+void SIFTDetectorsFromYAML(const cv::FileStorage &fs,
+                                std::vector<KeyPointDetector::ConstPtr> &vector)
 {
     std::vector<std::string>
             NumFeatures,
@@ -72,15 +83,14 @@ void SIFTDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
     }
 }
 
-void SIFTDescriptorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
-                                                    std::vector<DescriptorExtractor::ConstPtr> &vector) const
+void SIFTExtractorsFromYAML(const cv::FileStorage &fs,
+                                  std::vector<DescriptorExtractor::ConstPtr> &vector)
 {
-    SIFTDetectorCreationStrategy s;
-    s.createFromYAML(fs, vector);
+    SIFTDetectorsFromYAML(fs, vector);
 }
 
-void SURFDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
-                                                  std::vector<KeyPointDetector::ConstPtr> &vector) const
+void SURFDetectorsFromYAML(const cv::FileStorage &fs,
+                                std::vector<KeyPointDetector::ConstPtr> &vector)
 {
     std::vector<std::string>
             HessianThreshold,
@@ -125,15 +135,14 @@ void SURFDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
     }
 }
 
-void SURFDescriptorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
-                                                    std::vector<DescriptorExtractor::ConstPtr> &vector) const
+void SURFExtractorsFromYAML(const cv::FileStorage &fs,
+                                  std::vector<DescriptorExtractor::ConstPtr> &vector)
 {
-    SURFDetectorCreationStrategy s;
-    s.createFromYAML(fs, vector);
+    SURFDetectorsFromYAML(fs, vector);
 }
 
-void FASTDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
-                                                  std::vector<KeyPointDetector::ConstPtr> &vector) const
+void FASTDetectorsFromYAML(const cv::FileStorage &fs,
+                                std::vector<KeyPointDetector::ConstPtr> &vector)
 {
     std::vector<std::string>
             Threshold,
@@ -159,8 +168,8 @@ void FASTDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
     }
 }
 
-void STARDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
-                                                  std::vector<KeyPointDetector::ConstPtr> &vector) const
+void STARDetectorsFromYAML(const cv::FileStorage &fs,
+                                std::vector<KeyPointDetector::ConstPtr> &vector)
 {
     std::vector<std::string>
             MaxSize,
@@ -204,8 +213,8 @@ void STARDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
     }
 }
 
-void ORBDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
-                                                 std::vector<KeyPointDetector::ConstPtr> &vector) const
+void ORBDetectorsFromYAML(const cv::FileStorage &fs,
+                               std::vector<KeyPointDetector::ConstPtr> &vector)
 {
     std::vector<std::string>
             nfeatures,
@@ -261,15 +270,14 @@ void ORBDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
     }
 }
 
-void ORBDescriptorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
-                                                   std::vector<DescriptorExtractor::ConstPtr> &vector) const
+void ORBExtractorsFromYAML(const cv::FileStorage &fs,
+                                 std::vector<DescriptorExtractor::ConstPtr> &vector)
 {
-    ORBDetectorCreationStrategy s;
-    s.createFromYAML(fs, vector);
+    ORBDetectorsFromYAML(fs, vector);
 }
 
-void BRISKDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
-                                                   std::vector<KeyPointDetector::ConstPtr> &vector) const
+void BRISKDetectorsFromYAML(const cv::FileStorage &fs,
+                                 std::vector<KeyPointDetector::ConstPtr> &vector)
 {
     std::vector<std::string>
             thresh,
@@ -301,15 +309,14 @@ void BRISKDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
     }
 }
 
-void BRISKDescriptorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
-                                                     std::vector<DescriptorExtractor::ConstPtr> &vector) const
+void BRISKExtractorsFromYAML(const cv::FileStorage &fs,
+                                   std::vector<DescriptorExtractor::ConstPtr> &vector)
 {
-    BRISKDetectorCreationStrategy s;
-    s.createFromYAML(fs, vector);
+    BRISKDetectorsFromYAML(fs, vector);
 }
 
-void MSERDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
-                                                  std::vector<KeyPointDetector::ConstPtr> &vector) const
+void MSERDetectorsFromYAML(const cv::FileStorage &fs,
+                                std::vector<KeyPointDetector::ConstPtr> &vector)
 {
     //int _delta, int _min_area, int _max_area,
     //float _max_variation, float _min_diversity,
@@ -382,8 +389,8 @@ void MSERDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
     }
 }
 
-void GFTTDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
-                                                  std::vector<KeyPointDetector::ConstPtr> &vector) const
+void GFTTDetectorsFromYAML(const cv::FileStorage &fs,
+                                std::vector<KeyPointDetector::ConstPtr> &vector)
 {
     // int maxCorners=1000, double qualityLevel=0.01,
     // double minDistance=1., int blockSize=3,
@@ -437,8 +444,8 @@ void GFTTDetectorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
     }
 }
 
-void FREAKDescriptorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
-                                                     std::vector<DescriptorExtractor::ConstPtr> &vector) const
+void FREAKExtractorsFromYAML(const cv::FileStorage &fs,
+                                   std::vector<DescriptorExtractor::ConstPtr> &vector)
 {
     //bool orientationNormalized=true, bool scaleNormalized=true, float patternScale=22.0f, int nOctaves=4
     std::vector<std::string>
@@ -477,8 +484,8 @@ void FREAKDescriptorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
     }
 }
 
-void BRIEFDescriptorCreationStrategy::createFromYAML(const cv::FileStorage &fs,
-                                                     std::vector<DescriptorExtractor::ConstPtr> &vector) const
+void BRIEFExtractorsFromYAML(const cv::FileStorage &fs,
+                                   std::vector<DescriptorExtractor::ConstPtr> &vector)
 {
     // bytes is a length of descriptor in bytes. It can be equal 16, 32 or 64 bytes.
 
